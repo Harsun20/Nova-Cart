@@ -4,12 +4,10 @@
   "private": true,
   "description": "Nova Cart Trust Engine - fulfillment confidence, dynamic ETAs and automatic recovery (demo prototype)",
   "scripts": {
-    "dev": "concurrently -k -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
-    "dev:api": "node backend/server.js",
-    "dev:web": "vite frontend",
+    "dev": "node server.js",
     "build": "vite build frontend",
     "preview": "vite preview frontend",
-    "start": "node backend/server.js",
+    "start": "node server.js",
     "test": "node backend/smoke-test.js"
   },
   "dependencies": {

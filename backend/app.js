@@ -126,6 +126,48 @@ router.post('/orders/:id/action', wrap((req, res) => {
   res.json({ ...result, order: os.decorate(s, order) });
 }));
 
+router.patch('/orders/:id/instructions', wrap((req, res) => {
+  const s = getState();
+  const order = os.findOrder(s, req.params.id);
+  const { type, note } = req.body || {};
+  order.deliveryInstructions = {
+    type: type || (order.deliveryInstructions && order.deliveryInstructions.type) || 'doorstep',
+    note: typeof note === 'string' ? note : ((order.deliveryInstructions && order.deliveryInstructions.note) || '')
+  };
+  os.log(order, `Delivery instructions updated: ${order.deliveryInstructions.type} - "${order.deliveryInstructions.note}"`);
+  res.json({ order: os.decorate(s, order) });
+}));
+
+router.post('/orders/:id/message', wrap((req, res) => {
+  const s = getState();
+  const order = os.findOrder(s, req.params.id);
+  const { text } = req.body || {};
+  if (!text) throw new HttpError(400, 'Message text is required');
+  if (!order.chat) order.chat = [];
+  const riderName = order.riderName || 'Rider';
+  const customerMsg = { id: 'm-' + Date.now(), sender: 'customer', text, at: new Date().toISOString() };
+  order.chat.push(customerMsg);
+
+  let reply = "Got it! Thanks for the update.";
+  const lower = text.toLowerCase();
+  if (lower.includes('gate') || lower.includes('security') || lower.includes('entry')) {
+    reply = "Understood, I will notify the security desk upon arrival.";
+  } else if (lower.includes('call') || lower.includes('phone') || lower.includes('reach')) {
+    reply = "Sure, I'll give you a call right as I pull up to your building.";
+  } else if (lower.includes('door') || lower.includes('bell')) {
+    reply = "Will do! I'll place the bag carefully at your doorstep.";
+  } else if (order.status === 'out_for_delivery') {
+    reply = "I'm on the main road now, approximately 5-7 minutes away!";
+  } else if (order.status === 'rider_assigned') {
+    reply = "Just picking up your package from the store counter now!";
+  }
+
+  const riderReply = { id: 'm-' + (Date.now() + 100), sender: 'rider', name: riderName, text: reply, at: new Date().toISOString() };
+  order.chat.push(riderReply);
+  os.log(order, `Customer sent message to rider: "${text}"`);
+  res.json({ order: os.decorate(s, order), message: riderReply });
+}));
+
 router.get('/wallet', wrap((req, res) => {
   const s = getState();
   const customerId = req.query.customerId || 'c-demo';
@@ -203,13 +245,14 @@ router.post('/reset', wrap((req, res) => {
   res.json({ message: 'Demo data reset to initial state.' });
 }));
 
+router.use((req, res) => res.status(404).json({ error: { message: 'Endpoint not found' } }));
+
 const app = express();
 app.disable('x-powered-by');
 app.use(cors());
 app.use(express.json({ limit: '200kb' }));
 app.use('/api', router);
 app.use('/.netlify/functions/api', router);
-app.use((req, res) => res.status(404).json({ error: { message: 'Endpoint not found' } }));
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   if (err instanceof HttpError) return res.status(err.status).json({ error: { message: err.message } });

@@ -1,0 +1,7 @@
+{
+  "name": "Nova Cart Trust Engine",
+  "description": "Nova Cart Trust Engine - turn operational uncertainty into reliable customer promises (demo prototype).",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

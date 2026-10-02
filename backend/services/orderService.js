@@ -19,6 +19,34 @@ const findOrder = (state, id) => {
   return o;
 };
 
+const RIDER_PROFILES = {
+  r1: { id: 'r1', name: 'Suresh Kumar', phone: '+91 98201 84920', rating: 4.92, vehicle: 'Honda Activa 6G', color: 'Matte Black', plate: 'KA 01 EK 8421', deliveries: 1840, avatar: '🛵' },
+  r2: { id: 'r2', name: 'Anil Patil', phone: '+91 98334 11092', rating: 4.87, vehicle: 'TVS Jupiter 125', color: 'Royal Blue', plate: 'KA 03 MX 3391', deliveries: 1210, avatar: '🛵' },
+  r3: { id: 'r3', name: 'Farah Sheikh', phone: '+91 99120 44812', rating: 4.95, vehicle: 'Ather 450X Gen 3', color: 'White Electric', plate: 'KA 05 EV 9102', deliveries: 2430, avatar: '⚡' },
+  r4: { id: 'r4', name: 'Ravi Teja', phone: '+91 98450 77123', rating: 4.81, vehicle: 'Hero Splendor Plus', color: 'Graphite Grey', plate: 'KA 04 JR 5541', deliveries: 960, avatar: '🏍️' },
+  r5: { id: 'r5', name: 'Deepa Menon', phone: '+91 97410 88231', rating: 4.96, vehicle: 'Ola S1 Pro', color: 'Coral Red', plate: 'KA 02 EV 1278', deliveries: 3120, avatar: '⚡' },
+  r6: { id: 'r6', name: 'Manoj Lokhande', phone: '+91 98223 99401', rating: 4.89, vehicle: 'Bajaj Pulsar 150', color: 'Silver Chrome', plate: 'KA 01 HG 6710', deliveries: 1540, avatar: '🏍️' }
+};
+
+const STORE_LOCATIONS = {
+  s1: { name: 'Sri Lakshmi Supermarket', address: '12th Main Road, Indiranagar', landmark: 'Near Metro Pillar 84', lat: 12.9719, lng: 77.6412, x: 180, y: 140 },
+  s2: { name: 'Green Basket', address: '80 Feet Road, HAL 2nd Stage', landmark: 'Next to FabIndia', lat: 12.9680, lng: 77.6495, x: 620, y: 130 },
+  s3: { name: 'City Pharmacy', address: 'CMH Road, Indiranagar', landmark: 'Opposite Metro Station', lat: 12.9782, lng: 77.6385, x: 170, y: 80 },
+  s4: { name: 'Fresh Mart', address: 'Old Airport Road, Kodihalli', landmark: 'Near Leela Palace', lat: 12.9610, lng: 77.6530, x: 680, y: 310 },
+  s5: { name: 'Local Needs', address: 'Domlur Intermediate Ring Road', landmark: 'Beside EGL Tech Park', lat: 12.9590, lng: 77.6360, x: 150, y: 390 },
+  s6: { name: 'Balaji Stores', address: 'Defence Colony, Indiranagar', landmark: 'Near Post Office', lat: 12.9750, lng: 77.6440, x: 420, y: 190 }
+};
+
+const CUSTOMER_LOCATION = {
+  name: 'Delivery Address',
+  address: 'Flat 402, Pine Grove Residency, 100ft Road, Indiranagar',
+  landmark: 'Opposite Starbucks, near Sony Center',
+  lat: 12.9675,
+  lng: 77.6398,
+  x: 470,
+  y: 370
+};
+
 function delayMinutes(order) {
   if (['cancelled', 'rejected'].includes(order.status)) return 0;
   const effective = order.actualMin ?? order.projectedMin ?? 0;
@@ -29,6 +57,10 @@ function decorate(state, o) {
   const store = state.stores.find((s) => s.id === o.storeId);
   const customer = state.customers.find((c) => c.id === o.customerId);
   const rider = state.riders.find((r) => r.id === o.riderId);
+  const riderProfile = (o.riderId && RIDER_PROFILES[o.riderId]) || (rider ? { ...rider, phone: '+91 98201 84920', rating: 4.9, vehicle: 'Honda Activa', plate: 'KA 01 EK 8421', deliveries: 1500, avatar: '🛵' } : null);
+  const storeLocation = STORE_LOCATIONS[o.storeId] || { name: store?.name || 'Partner Store', address: 'Indiranagar Main Rd', landmark: 'City Center', lat: 12.9719, lng: 77.6412, x: 200, y: 150 };
+  const customerLocation = CUSTOMER_LOCATION;
+
   const delayMin = delayMinutes(o);
   const failed = ['cancelled', 'rejected'].includes(o.status);
   let risk = 'LOW';
@@ -40,11 +72,31 @@ function decorate(state, o) {
   else if (['required', 'pending'].includes(o.refundStatus)) health = 'REFUND_REQUIRED';
   else if (risk !== 'LOW') health = 'AT_RISK';
   const issue = o.issue || (delayMin > 0 ? `Late by ${delayMin} min` : '');
+
+  // Tracking metadata
+  const stages = {
+    placed: { key: 'placed', label: 'Order Confirmed', step: 1, progress: 15, sub: 'Store notified. Awaiting acceptance.' },
+    accepted: { key: 'accepted', label: 'Store Accepted & Packing', step: 2, progress: 35, sub: `${store?.name || 'Store'} is preparing and packing items.` },
+    rider_assigned: { key: 'rider_assigned', label: 'Rider Heading to Store', step: 3, progress: 55, sub: riderProfile ? `${riderProfile.name} is on the way to collect your order.` : 'Assigning nearest verified rider.' },
+    out_for_delivery: { key: 'out_for_delivery', label: 'Out for Delivery', step: 4, progress: 80, sub: riderProfile ? `${riderProfile.name} is on the way with your package!` : 'Rider is driving to your location.' },
+    delivered: { key: 'delivered', label: 'Delivered', step: 5, progress: 100, sub: 'Package handed over at delivery address.' },
+    cancelled: { key: 'cancelled', label: 'Cancelled', step: 0, progress: 0, sub: 'Order was cancelled.' },
+    rejected: { key: 'rejected', label: 'Store Rejected', step: 0, progress: 0, sub: 'Store was unable to accept this order.' }
+  };
+
+  const tracking = stages[o.status] || stages.placed;
+
   return {
     ...o,
     storeName: store.name,
     customerName: customer.name,
     riderName: rider ? rider.name : null,
+    rider: riderProfile,
+    storeLocation,
+    customerLocation,
+    deliveryInstructions: o.deliveryInstructions || { type: 'doorstep', note: 'Ring bell once, leave at doorstep' },
+    chat: o.chat || [],
+    tracking,
     promised: `${o.promisedMin}\u2013${o.promisedMax} min`,
     actualOrProjected: o.actualMin ?? o.projectedMin,
     delayMin,
@@ -305,5 +357,6 @@ function decorateTickets(state) {
 
 module.exports = {
   HttpError, findOrder, decorate, transition, createOrder, buildQuote, nextStatuses,
-  simulateDelay, simulateRiderDelay, simulateMissing, simulateSubstitution, supportAction, decorateTickets, delayMinutes
+  simulateDelay, simulateRiderDelay, simulateMissing, simulateSubstitution, supportAction, decorateTickets, delayMinutes,
+  log, RIDER_PROFILES, STORE_LOCATIONS, CUSTOMER_LOCATION
 };

@@ -47,5 +47,7 @@ export const api = {
   simulation: (p) => request(`/analytics/simulation${qs(p)}`),
   toggleStock: (inventoryId, inStock) => request('/inventory/update', { method: 'POST', body: { inventoryId, inStock } }),
   bulkUpdate: (csv) => request('/inventory/bulk-update', { method: 'POST', body: { csv } }),
+  updateInstructions: (id, body) => request(`/orders/${id}/instructions`, { method: 'PATCH', body }),
+  sendMessage: (id, text) => request(`/orders/${id}/message`, { method: 'POST', body: { text } }),
   reset: () => request('/reset', { method: 'POST' })
 };

@@ -67,6 +67,7 @@ tr:last-child td { border-bottom: 0; } tbody tr:hover { background: #fafbfc; }
 .errorbox { color: var(--bad); background: var(--bad-bg); border-color: #f3c0bb; }
 .spinner { width: 22px; height: 22px; border: 3px solid #d6dde6; border-top-color: var(--brand); border-radius: 50%; animation: spin .8s linear infinite; margin: 24px auto; }
 @keyframes spin { to { transform: rotate(360deg); } } @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes routeDash { to { stroke-dashoffset: -20; } }
 .page { animation: rise .25s ease; }
 .toasts { position: fixed; right: 16px; bottom: 16px; display: grid; gap: 8px; z-index: 100; max-width: min(380px, calc(100vw - 32px)); }
 .toast { background: #0f172a; color: #fff; padding: 11px 14px; border-radius: 10px; box-shadow: var(--shadow); display: flex; gap: 10px; align-items: flex-start; animation: rise .2s; border-left: 4px solid #22c55e; }
