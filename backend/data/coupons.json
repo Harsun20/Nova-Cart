@@ -1,0 +1,5 @@
+[
+  {"code":"NOVA50","title":"10% off, up to ₹50","type":"percent","value":10,"cap":50,"minOrder":149},
+  {"code":"FRESH20","title":"Flat ₹20 off","type":"flat","value":20,"minOrder":99},
+  {"code":"TRUST15","title":"15% off, up to ₹60 (high-confidence orders only)","type":"percent","value":15,"cap":60,"minOrder":249,"minConfidence":80}
+]

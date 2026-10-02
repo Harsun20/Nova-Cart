@@ -1,0 +1,20 @@
+[
+  {"id":"i1","productId":"p1","storeId":"s1","qty":34,"updatedHoursAgo":1,"availabilityAccuracy":96},
+  {"id":"i2","productId":"p1","storeId":"s2","qty":18,"updatedHoursAgo":4,"availabilityAccuracy":90},
+  {"id":"i3","productId":"p1","storeId":"s4","qty":3,"updatedHoursAgo":30,"availabilityAccuracy":74},
+  {"id":"i4","productId":"p2","storeId":"s2","qty":22,"updatedHoursAgo":2,"availabilityAccuracy":93},
+  {"id":"i5","productId":"p2","storeId":"s5","qty":5,"updatedHoursAgo":120,"availabilityAccuracy":62},
+  {"id":"i6","productId":"p3","storeId":"s1","qty":60,"updatedHoursAgo":1,"availabilityAccuracy":97},
+  {"id":"i7","productId":"p3","storeId":"s6","qty":40,"updatedHoursAgo":6,"availabilityAccuracy":90},
+  {"id":"i8","productId":"p4","storeId":"s1","qty":14,"updatedHoursAgo":3,"availabilityAccuracy":92},
+  {"id":"i9","productId":"p4","storeId":"s4","qty":6,"updatedHoursAgo":48,"availabilityAccuracy":80},
+  {"id":"i10","productId":"p5","storeId":"s3","qty":45,"updatedHoursAgo":2,"availabilityAccuracy":96},
+  {"id":"i11","productId":"p5","storeId":"s5","qty":0,"updatedHoursAgo":312,"availabilityAccuracy":55},
+  {"id":"i12","productId":"p6","storeId":"s6","qty":25,"updatedHoursAgo":5,"availabilityAccuracy":91},
+  {"id":"i13","productId":"p6","storeId":"s4","qty":2,"updatedHoursAgo":72,"availabilityAccuracy":70},
+  {"id":"i14","productId":"p7","storeId":"s2","qty":12,"updatedHoursAgo":3,"availabilityAccuracy":85},
+  {"id":"i15","productId":"p7","storeId":"s5","qty":4,"updatedHoursAgo":96,"availabilityAccuracy":60},
+  {"id":"i16","productId":"p8","storeId":"s1","qty":40,"updatedHoursAgo":2,"availabilityAccuracy":95},
+  {"id":"i17","productId":"p8","storeId":"s5","qty":8,"updatedHoursAgo":60,"availabilityAccuracy":68},
+  {"id":"i18","productId":"p8","storeId":"s4","qty":15,"updatedHoursAgo":10,"availabilityAccuracy":83}
+]

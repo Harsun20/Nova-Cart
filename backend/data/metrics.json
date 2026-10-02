@@ -1,0 +1,25 @@
+{
+  "current": {"mau":46000,"monthlyOrders":38500,"repeatRate":27,"avgDeliveryMin":37,"cancellationRate":11,"supportTickets":5900,"ticketResolutionHours":9.2},
+  "sixMonthsAgo": {"repeatRate":41,"avgDeliveryMin":29,"cancellationRate":6,"supportTickets":3100},
+  "survey": [
+    {"label":"Available items became unavailable","pct":29},
+    {"label":"Delivery takes too long","pct":34},
+    {"label":"Prices/fees higher than expected","pct":38},
+    {"label":"Discounts are confusing","pct":24},
+    {"label":"Experienced refund problems","pct":16}
+  ],
+  "cancellationCauses": [
+    {"label":"Product unavailable","pct":35},
+    {"label":"Delivery delay","pct":27},
+    {"label":"Store rejection","pct":18},
+    {"label":"Other","pct":20}
+  ],
+  "ticketCauses": [
+    {"label":"Refunds","pct":29},
+    {"label":"Delays","pct":24},
+    {"label":"Missing products","pct":19},
+    {"label":"Other","pct":28}
+  ],
+  "assumptions": {"inventoryAccuracy":71,"riderAvailability":62,"storeAcceptance":82,"deliveryReliability":68,"secondOrderConversion":52,"thirdOrderConversion":38},
+  "scenarioPreset": {"inventoryAccuracy":88,"riderAvailability":80,"storeAcceptance":92,"deliveryReliability":86}
+}

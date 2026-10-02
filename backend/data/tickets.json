@@ -1,0 +1,8 @@
+[
+  {"id":"T-3001","orderId":"NC-20261002-1004","type":"REFUND_PENDING","openedHoursAgo":6,"status":"open"},
+  {"id":"T-3002","orderId":"NC-20261002-1002","type":"DELIVERY_DELAYED","openedHoursAgo":1,"status":"open"},
+  {"id":"T-3003","orderId":"NC-20261002-1008","type":"MISSING_PRODUCT","openedHoursAgo":3,"status":"open"},
+  {"id":"T-3004","orderId":"NC-20261002-1007","type":"COUPON_ISSUE","openedHoursAgo":8,"status":"open"},
+  {"id":"T-3005","orderId":"NC-20261002-1005","type":"INCORRECT_ORDER","openedHoursAgo":0.5,"status":"open"},
+  {"id":"T-3006","orderId":"NC-20261002-1003","type":"REFUND_PENDING","openedHoursAgo":20,"status":"open"}
+]

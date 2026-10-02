@@ -1,0 +1,10 @@
+[
+  {"id":"p1","name":"Amul Taaza Milk 1L","price":56,"category":"Dairy","emoji":"🥛"},
+  {"id":"p2","name":"Britannia Bread","price":45,"category":"Bakery","emoji":"🍞"},
+  {"id":"p3","name":"Parle-G Biscuits","price":20,"category":"Snacks","emoji":"🍪"},
+  {"id":"p4","name":"Aashirvaad Atta 5kg","price":285,"category":"Staples","emoji":"🌾"},
+  {"id":"p5","name":"Crocin Advance","price":32,"category":"Pharmacy","emoji":"💊"},
+  {"id":"p6","name":"Classmate Notebook","price":68,"category":"Stationery","emoji":"📓"},
+  {"id":"p7","name":"Fresh Bananas (6 pcs)","price":60,"category":"Fresh","emoji":"🍌"},
+  {"id":"p8","name":"Maggi 2-Minute Noodles","price":89,"category":"Instant Food","emoji":"🍜"}
+]

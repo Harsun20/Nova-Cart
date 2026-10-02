@@ -1,0 +1,8 @@
+[
+  {"id":"s1","name":"Sri Lakshmi Supermarket","category":"Grocery","online":true,"distanceKm":1.2,"load":0.35,"avgPrepMin":10,"acceptanceRate":96,"cancellationRate":3,"substitutionRate":4,"riders":5,"traffic":1.1,"restockQty":30},
+  {"id":"s2","name":"Green Basket","category":"Grocery","online":true,"distanceKm":1.8,"load":0.45,"avgPrepMin":12,"acceptanceRate":91,"cancellationRate":5,"substitutionRate":6,"riders":4,"traffic":1.15,"restockQty":20},
+  {"id":"s3","name":"City Pharmacy","category":"Pharmacy","online":true,"distanceKm":2.1,"load":0.3,"avgPrepMin":9,"acceptanceRate":93,"cancellationRate":4,"substitutionRate":3,"riders":3,"traffic":1.2,"restockQty":40},
+  {"id":"s4","name":"Fresh Mart","category":"Grocery","online":true,"distanceKm":2.6,"load":0.6,"avgPrepMin":15,"acceptanceRate":82,"cancellationRate":9,"substitutionRate":11,"riders":2,"traffic":1.35,"restockQty":15},
+  {"id":"s5","name":"Local Needs","category":"General","online":true,"distanceKm":3.4,"load":0.75,"avgPrepMin":18,"acceptanceRate":71,"cancellationRate":15,"substitutionRate":17,"riders":1,"traffic":1.5,"restockQty":10},
+  {"id":"s6","name":"Balaji Stores","category":"General & Stationery","online":true,"distanceKm":1.5,"load":0.4,"avgPrepMin":11,"acceptanceRate":88,"cancellationRate":7,"substitutionRate":8,"riders":3,"traffic":1.15,"restockQty":25}
+]
